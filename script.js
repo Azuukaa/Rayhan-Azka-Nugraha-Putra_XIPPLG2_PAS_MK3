@@ -16,16 +16,15 @@ const tasksWrapper = document.querySelector(".tasks-wrapper");
 function renderTasks() {
   tasksWrapper.innerHTML = "";
 
-  //taskArray empty
+  
   if (tasksArr.length === 0) {
     tasksWrapper.innerHTML = `<div class="no-tasks">Gada Tugas Nih</div>`;
     return;
   }
 
-  //if tasks arr has tasks
-
+ 
   tasksArr.forEach((task) => {
-    //check if expired
+  
     let expired;
     expired = checkExpired(task) ? "TELAT!" : "";
 
@@ -62,16 +61,16 @@ function renderTasks() {
           <ion-icon name="trash-outline"></ion-icon>
         </div>`;
 
-  //add event listners
+ 
 
   const tasks = document.querySelectorAll(".task");
 
   tasks.forEach((task) => {
     task.addEventListener("click", (e) => {
-      //if radio clicked
+      
       if (e.target.classList.contains("radio")) {
         task.classList.toggle("selected");
-        //show delete button when at leaset one taske selected
+       
         if (document.querySelector(".task.selected")) {
           document.querySelector(".delete").classList.add("show");
         } else {
@@ -81,7 +80,7 @@ function renderTasks() {
     });
   });
 
-  //on delete remove task from arr and rerender
+ 
   const deleteBtn = document.querySelector(".delete");
   deleteBtn.addEventListener("click", deleteTasks);
 }
@@ -97,17 +96,17 @@ function checkExpired(task) {
   }
   return false;
 
-  //true if current date or time is less means task has to come yet
+ 
 }
 
 function deleteTasks() {
   const selectedTasks = document.querySelectorAll(".task.selected");
   if (selectedTasks.length === 0) return;
-  //if some taks selected
+ 
   let confirmDelete = confirm("Yakin mau hapus tugasnya?");
   if (confirmDelete) {
     selectedTasks.forEach((task) => {
-      //get title of task and filter matching title tasks
+      
       let title = task.querySelector(".title").innerHTML;
       tasksArr = tasksArr.filter((task) => task.title !== title);
     });
@@ -127,9 +126,9 @@ addTaskForm.addEventListener("submit", (e) => {
     description = descriptionElem.value,
     date = dateElem.value,
     time = timeElem.value;
-  //validate
+ 
   if (title === "" || description === "" || date === "" || time === "") {
-    //if anything empty
+   
     alert("Isi dulu semua informasinya");
   }
 
@@ -140,11 +139,11 @@ addTaskForm.addEventListener("submit", (e) => {
     time,
   };
 
-  //push in arr
+  
   tasksArr.push(task);
-  //rerender arr
+ 
   renderTasks();
-  //clear after adding
+ 
   clear();
 });
 
@@ -157,7 +156,7 @@ function clear() {
   dateElem.nextElementSibling.innerHTML = "Batas Tanggal";
   timeElem.nextElementSibling.innerHTML = "Batas Waktu";
 }
-//clear on clear btn
+
 const clearBtn = document.querySelector(".clear");
 
 clearBtn.addEventListener("click", clear);
